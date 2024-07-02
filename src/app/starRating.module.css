@@ -1,0 +1,32 @@
+
+.starRating {
+  display: flex;
+}
+
+.star {
+  position: relative;
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+  background: #e0e0e0;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+.filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ffc107; /* Adjust color as needed */
+  clip-path: inherit;
+}
