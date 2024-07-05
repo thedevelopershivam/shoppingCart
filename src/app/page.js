@@ -1,12 +1,12 @@
 import ProductsCarousel from '@/app/components/common/ProductsCarousel';
 
-import ProductsCategoryWrapper from '@/app/components/Index/ProductsCategoryWrapper';
-import MultiTabProducts from './components/Index/MultiTabProducts';
-import ProductBanner from './components/common/ProductBanner';
+import ProductsCategoryWrapper from "@/app/components/Index/ProductsCategoryWrapper";
+import MultiTabProducts from "./components/Index/MultiTabProducts";
+import ProductBanner from "./components/common/ProductBanner";
 
-import Collections from './components/common/collection/Collections';
-import PopularCategory from './components/common/PopularCategory';
-import ProductCarouselWithSideBanner from './components/common/productCarousel/ProductCarouselWithSideBanner';
+import Collections from "./components/common/collection/Collections";
+import PopularCategory from "./components/common/PopularCategory";
+import ProductCarouselWithSideBanner from "./components/common/productCarousel/ProductCarouselWithSideBanner";
 
 import BlogWrapper from './components/common/blog/BlogWrapper';
 import axiosInstance from "./util/axiosWithoutLogin";
@@ -33,7 +33,7 @@ async function page() {
 
   return (
     <>
-      <div className='flex flex-col gap-20 mx-auto'>
+      <div className="flex flex-col gap-20 mx-auto">
         <ProductsCarousel autoPlay={true} autoPlaySpeed={5000} />
         <ProductsCategoryWrapper productData={projects?.data?.title} />
         <MultiTabProducts featureData={projects?.data?.featureProducts} />
@@ -53,7 +53,7 @@ async function page() {
 
       
     </>
-  )
+  );
 }
 
-export default page
+export default page;

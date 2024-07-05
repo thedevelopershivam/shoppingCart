@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server"
-import axiosInstance from '@/app/util/axiosWithoutLogin';
+import { NextResponse } from "next/server";
+import axiosInstance from "@/app/util/axiosWithoutLogin";
 
 export const POST = async (request) => {
     const data =  await request.json();
