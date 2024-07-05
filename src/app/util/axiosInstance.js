@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { cookies } from 'next/headers';
 
 
@@ -10,10 +9,13 @@ const axiosInstance = axios.create({
 
 // Add a request interceptor to set the authentication header
 axiosInstance.interceptors.request.use(
+
     (config) => {
-        
+
         const cookieStore = cookies();
-        const token = cookieStore.get('token');        
+        const tokenData = cookieStore.get("token");
+        const token = tokenData?.value;
+
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -21,7 +23,7 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error) => {
-        return Promise.reject(error);
+        return Promise.reject(error.response);
     }
 );
 

@@ -11,10 +11,19 @@ export const ProductsPage = createApi({
             query: () => "/api/productPage",
         }),
 
-        productsByQuery: builder.query({
-            query: (query) => `/api/productPage?${query}`,
+
+        addToCart: builder.mutation({
+            query: (body) => {
+                return {
+                    url: `/api/addToCart`,
+                    method: 'POST',
+                    body: body
+                }
+            },
         }),
+
+
     }),
 });
 
-export const { useProductPageFilterQuery, useProductsByQueryQuery } = ProductsPage;
+export const { useProductPageFilterQuery, useAddToCartMutation } = ProductsPage;

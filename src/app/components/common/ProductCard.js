@@ -8,12 +8,9 @@ import FavHeart from "../../components/common/product/FavHeart";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "@/app/redux/slices/cartSlice";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-
-
-
-
-
-
+import { useAddToCartMutation } from "@/app/redux/query/Queries";
+import { popUp } from "@/app/redux/slices/authPopUpSlice";
+import { useEffect } from "react";
 
 const ProductBadge = ({ children }) => {
     return <div className={`pb-0.5 rounded-xl text-xs px-2 text-white opacity-85 ${children.toLowerCase() === "new" ? "bg-red-400 shadow-[0_0_15px_-6px_rgba(250,50,50,1)] " : "bg-blue-400 shadow-[0_0_15px_-6px_rgba(20,20,250,1)]"}`}>
@@ -22,6 +19,7 @@ const ProductBadge = ({ children }) => {
 }
 
 function ProductCard({
+    cartItems,
     rating = "4.6%",
     price = 550,
     id,
@@ -36,36 +34,52 @@ function ProductCard({
     sizes,
     productName,
     href = "#",
-    addToCartData
+    addToCartData,
 }) {
 
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
+    const cartId = useSelector((state) => state.cart.cartId);
 
-    const addItemHandler = () => {
+    const [addToCartFun, addToCartRes] = useAddToCartMutation();
+    const addItemHandler = async () => {
+        if (localStorage.getItem("token")) {
+            const { data, error } = await addToCartFun({ productId: id });
+            dispatch(addCart(data?.data));
+        }
+        else {
+            alert("i am here")
+            dispatch(popUp("login"))
+        }
+
         // let newCartItemId = [];
         // let productCart = [];
         
         // if(cart?.cartId.includes(id)){
-        //     newCartItemId = cart?.cartId?.filter((item)=> item !== id)
-        //     productCart = cart?.cart?.filter((item)=> item.id !== id)
-        // }
-        // else{
+            //     newCartItemId = cart?.cartId?.filter((item)=> item !== id)
+            //     productCart = cart?.cart?.filter((item)=> item.id !== id)
+            // }
+            // else{
         //     newCartItemId = [...cart?.cartId, id];
         //     productCart = [ ...cart.cart, addToCartData ]
         // }
         
         // const stingifyData = JSON.stringify(productCart);
         // const stingifyDataId = JSON.stringify(newCartItemId);
-
+        
         // localStorage.setItem("cart", stingifyData);
         // localStorage.setItem("cartId", stingifyDataId);
-
-        dispatch(addCart(addToCartData));
+        
+        // dispatch(addCart(addToCartData));
     }
+        
+    useEffect(() => {
+        dispatch(addCart(cartItems))
+    }, [])
 
-    const CartId = JSON.parse(localStorage.getItem("cartId"));
-    const isInCart = CartId && CartId?. some((item) => item === id);
+    const isInCart = cartId.some((item) => Number(item) === Number(id));
+
+    
 
 
     return (
@@ -156,11 +170,9 @@ function ProductCard({
                             <button type="button" className="text-[calc(16px+.2vw)] font-semibold text-textPrimary hover:text-textGrays">
                                 Buy Now
                             </button>
-
-
                             {
                                 
-                                    isInCart ?
+                                isInCart ?
                                     <TooltipMUI
                                         icon={<MdOutlineRemoveShoppingCart size={23} />}
                                         className={"w-11 h-11 rounded-full bg-bgSecondary"}
@@ -171,20 +183,8 @@ function ProductCard({
                                     <TooltipMUI
                                         tooltipText="Add to cart"
                                         onClick={addItemHandler}
-                                    />
-                                    
-
-                                    
-
-
-
-                            }
-
-
-
-
-
-
+                                    />   
+                                }
                         </div>
                     }
                 </section>

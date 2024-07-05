@@ -36,7 +36,6 @@ function TopNavbar() {
     const cart = useSelector((state) => state?.cart);
     const authModal = useSelector((state) => state?.popUp?.popUp);
 
-    const [formSwitcher, setFormSwitcher] = useState();
     
 
     useEffect(() => {

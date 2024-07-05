@@ -1,10 +1,10 @@
 
 import Wrapper from '../common/Wrapper'
 import { H1 } from './../common/Headings';
-import ProductCarousel from '../common/productCarousel/ProductCarousel';
+
 import ProductCard from '../common/ProductCard';
 
-function AllProducts({ data }) {
+function AllProducts({ data, cartData }) {
 
     return (<Wrapper className="flex flex-col gap-0 md:gap-10 px-[5vw]">
         {
@@ -13,8 +13,10 @@ function AllProducts({ data }) {
                     <H1 className="capitalize"> {item?.category} </H1>
                     <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-5">
                         {
-                            item?.products?.map((item, index) =>
-                                <ProductCard
+                            item?.products?.map((item, index) => {
+                                console.log(item?.id)
+                                return <ProductCard
+                                    cartItems={cartData}
                                     id={item?.id}
                                     addToCartData={item}
                                     rating={`${item?.rates[0]?.rate} by ${item?.rates[0]?.people}`}
@@ -26,6 +28,7 @@ function AllProducts({ data }) {
                                     price={!item?.coupon ? item.price : discountCalculation(item?.coupon?.disType, item?.coupon?.discount, item?.price)}
                                     key={index}
                                 />
+                            }
                             )
                         }
                     </div>
