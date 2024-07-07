@@ -36,14 +36,23 @@ function TopNavbar() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state?.user?.user);
+  console.log(user);
   const cart = useSelector((state) => state?.cart);
   const authModal = useSelector((state) => state?.popUp?.popUp);
+  const [hasToken, setHasToken] = useState(false);
+  console.log(hasToken);
+  useEffect(() => {
+    const token =
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1] || localStorage.getItem("token");
+    setHasToken(!!token);
+  }, []);
+  // useEffect(() => {
 
-    
-
-    useEffect(() => {
-        let data = localStorage.getItem("data");
-        data = JSON.parse(data);
+  //     let data = localStorage.getItem("data");
+  //     data = JSON.parse(data);
 
   //     let cartItems = localStorage.getItem("cart");
   //     cartItems = JSON.parse(cartItems);
@@ -66,14 +75,15 @@ function TopNavbar() {
         </div>
 
         <div className="hidden sm:flex gap-8">
-          {user && !user?.email && (
-            <span
-              className="font-semibold text-white cursor-pointer"
-              onClick={() => dispatch(popUp("login"))}
-            >
-              Login
-            </span>
+          {/* {user && !user?.email && ( */}
+          {!hasToken && (
+            <Link href={"/login"}>
+              <span className="font-semibold text-white cursor-pointer">
+                Login
+              </span>
+            </Link>
           )}
+          {/* )} */}
 
           <LinkTag
             href={"#"}
@@ -109,7 +119,7 @@ function TopNavbar() {
         </div>
       </Wrapper>
 
-      <Signup
+      {/* <Signup
         display={authModal === "signup" ? "flex" : "hidden"}
         formSwitcher={() => dispatch(popUp("login"))}
         setDisplayLoginPopup={() => dispatch(popUp(""))}
@@ -126,7 +136,7 @@ function TopNavbar() {
         display={authModal === "forgot" ? "flex" : "hidden"}
         formSwitcher={() => dispatch(popUp("login"))}
         setDisplayLoginPopup={() => dispatch(popUp(""))}
-      />
+      /> */}
     </>
   );
 }

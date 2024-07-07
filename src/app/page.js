@@ -1,4 +1,4 @@
-import ProductsCarousel from '@/app/components/common/ProductsCarousel';
+import ProductsCarousel from "@/app/components/common/ProductsCarousel";
 
 import ProductsCategoryWrapper from "@/app/components/Index/ProductsCategoryWrapper";
 import MultiTabProducts from "./components/Index/MultiTabProducts";
@@ -8,28 +8,26 @@ import Collections from "./components/common/collection/Collections";
 import PopularCategory from "./components/common/PopularCategory";
 import ProductCarouselWithSideBanner from "./components/common/productCarousel/ProductCarouselWithSideBanner";
 
-import BlogWrapper from './components/common/blog/BlogWrapper';
+import BlogWrapper from "./components/common/blog/BlogWrapper";
 import axiosInstance from "./util/axiosWithoutLogin";
-import AllProducts from './components/Index/AllProducts';
+import AllProducts from "./components/Index/AllProducts";
 
-import { cookies } from 'next/headers';
-import Image from 'next/image';
-
+import { cookies } from "next/headers";
+import Image from "next/image";
 
 async function getProjects(token) {
-  let userAuthToekn = token ? `Bearer ${token}` : '';
+  let userAuthToekn = token ? `Bearer ${token}` : "";
   const projects = await axiosInstance.get("/get-title", {
-    headers: { Authorization: userAuthToekn }
+    headers: { Authorization: userAuthToekn },
   });
-  return projects
+  return projects;
 }
 
 async function page() {
-
   const cookieStore = cookies();
   const tokenData = cookieStore.get("token");
   const token = tokenData?.value;
-  const projects = await getProjects(token)
+  const projects = await getProjects(token);
 
   return (
     <>
@@ -40,7 +38,9 @@ async function page() {
         <ProductBanner />
         <PopularCategory subCategory={projects?.data?.allSubCategories} />
         <Collections />
-        <ProductCarouselWithSideBanner productCarouselData={projects?.data?.bestSell} />
+        <ProductCarouselWithSideBanner
+          productCarouselData={projects?.data?.bestSell}
+        />
         <ProductBanner />
         <AllProducts
           data={projects?.data?.allProducts}
@@ -49,9 +49,6 @@ async function page() {
         {/* <DealCardWrapper /> */}
         <BlogWrapper blogData={projects?.data?.blogs} />
       </div>
-
-
-      
     </>
   );
 }

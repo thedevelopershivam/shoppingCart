@@ -1,12 +1,11 @@
-
 .starRating {
   display: flex;
 }
 
 .star {
   position: relative;
-  width: 24px; /* Adjust size as needed */
-  height: 24px; /* Adjust size as needed */
+  width: 24px;
+  height: 24px;
   background: #e0e0e0;
   clip-path: polygon(
     50% 0%,
@@ -27,6 +26,6 @@
   top: 0;
   left: 0;
   height: 100%;
-  background: #ffc107; /* Adjust color as needed */
+  background: #ffc107;
   clip-path: inherit;
 }

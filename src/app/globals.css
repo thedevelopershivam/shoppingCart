@@ -53,14 +53,11 @@ body {
   color: #565656;
 }
 
-
-.fav
-{
+.fav {
   filter: drop-shadow(0 0 2px 2px red) !important;
 }
 
-
-.animation-play-state-start:hover{
+.animation-play-state-start:hover {
   animation-play-state: running !important ;
 }
 
@@ -114,8 +111,7 @@ body {
   background: linear-gradient(90deg, var(--bg-secondary), var(--bg-primary));
 }
 
-.z-999999
-{
+.z-999999 {
   z-index: 999999 !important;
 }
 
@@ -189,3 +185,19 @@ body {
 }
 /* hs */
 
+/* star rating css  */
+.css-e0foho-MuiRating-root {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: relative;
+  font-size: 5.875rem;
+  color: #faaf00;
+  cursor: pointer;
+  text-align: left;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  -webkit-tap-highlight-color: transparent;
+}
